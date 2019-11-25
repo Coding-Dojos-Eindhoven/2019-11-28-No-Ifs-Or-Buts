@@ -53,8 +53,21 @@ You can use any programming language / editor / IDE of your choice. As always,
 please work in pairs and use [TDD][three_laws_of_tdd] (yes,
 [really][giving_up_on_tdd]).
 
+Advanced Challenges
+-------------------
+
+When you're finished but not yet done, you can take the game any direction you
+like. Be creative! Here's a few ideas to help you spark yours:
+
+- Implement the [Salvo variation][salvo_variation]
+- Implement a remote version so that the players don't have to be at the same
+  location
+- Implement a version with _n_ players instead of just two (Do they all have
+  separate grids? Do the grids overlap, partially or completely? If you have
+  a hit, do you know which player you hit? Etc...)
 
 [game_rules]: https://www.thesprucecrafts.com/the-basic-rules-of-battleship-411069
 [game_video]: https://invidio.us/watch?v=4gHJlYLomrs
 [three_laws_of_tdd]: http://www.butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd
 [giving_up_on_tdd]: https://blog.cleancoder.com/uncle-bob/2016/03/19/GivingUpOnTDD.html
+[salvo_variation]: https://www.thesprucecrafts.com/salvo-complete-rules-412378
