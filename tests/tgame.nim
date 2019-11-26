@@ -19,3 +19,11 @@ suite "setup":
     check unplacedShips[battleship].len == 4
     check unplacedShips[carrier].len == 5
 
+suite "dropping bombs":
+  test "a bomb can hit":
+    let ships = unplacedShips
+    check ships.drop(0, 0) == true
+
+  test "a bomb can miss":
+    let ships = unplacedShips
+    check ships.drop(1,1) == false

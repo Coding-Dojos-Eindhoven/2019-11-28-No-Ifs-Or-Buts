@@ -25,3 +25,6 @@ proc place*(ships: Ships, ship: ShipType, coordinates: seq[Coordinate]): Ships =
 
 proc coordinates*(ship: Ship): seq[Coordinate] =
   ship.mapIt(it[0])
+
+proc drop*(ships: Ships, row, column: int): bool =
+  result = not bool(row)
