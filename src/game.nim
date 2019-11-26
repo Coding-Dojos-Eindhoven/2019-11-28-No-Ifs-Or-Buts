@@ -8,8 +8,6 @@ type
   Ship* = seq[ShipHole]
   Ships* = Table[ShipType, Ship]
 
-const allShipTypes = [destroyer, submarine, cruiser, battleship, carrier]
-
 const unplaced = ((0, 0), false)
 const unplacedShips*: Ships = {
   destroyer:  @[unplaced, unplaced],
@@ -34,10 +32,10 @@ proc updateHit(hole: ShipHole, drop: Coordinate): ShipHole =
 
 proc drop*(ships: Ships, row, column: int): Ships =
   result = ships
-  for shipType in allShipTypes:
+  for shipType in ships.keys:
     result[shipType].applyIt(updateHit(it, (row, column)))
 
 proc allHaveSunk*(ships: Ships): bool =
   result = true
-  for shipType in allShipTypes:
-    result = result and ships[shipType].allIt(it.hit)
+  for ship in ships.values:
+    result = result and ship.allIt(it.hit)
