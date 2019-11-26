@@ -33,7 +33,9 @@ suite "dropping bombs":
       .place(carrier, @[(4,7), (3,7), (2,7), (1,7), (0,7)])
 
   test "a bomb can hit":
-    check ships.drop(7, 1) == true
+    let updated = ships.drop(7, 1)
+    check isHit(updated[destroyer], 0) == true
 
   test "a bomb can miss":
-    check ships.drop(0, 1) == false
+    let updated = ships.drop(7, 0)
+    check isHit(updated[destroyer], 0) == false
