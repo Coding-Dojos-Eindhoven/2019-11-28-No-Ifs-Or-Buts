@@ -39,3 +39,10 @@ suite "dropping bombs":
   test "a bomb can miss":
     let updated = ships.drop(7, 0)
     check isHit(updated[destroyer], 0) == false
+
+  test "it remembers where bombs were dropped":
+    let updated = ships
+      .drop(7, 1)
+      .drop(7, 2)
+    check isHit(updated[destroyer], 0) == true
+    check isHit(updated[destroyer], 1) == true

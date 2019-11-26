@@ -29,4 +29,4 @@ proc coordinates*(ship: Ship): seq[Coordinate] =
 proc drop*(ships: Ships, row, column: int): Ships =
   result = ships
   for ship in low(ShipType)..high(ShipType):
-    result[ship] = result[ship].mapIt((it[0], it[0] == (row, column)))
+    result[ship] = result[ship].mapIt((it[0], it[1] or it[0] == (row, column)))
