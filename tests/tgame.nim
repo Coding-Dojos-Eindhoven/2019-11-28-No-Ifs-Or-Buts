@@ -1,6 +1,6 @@
 import unittest
 import tables
-import battleship
+import game
 
 suite "setup":
   test "it has a destroyer":
@@ -16,6 +16,6 @@ suite "setup":
     check ships[destroyer].len == 2
     check ships[submarine].len == 3
     check ships[cruiser].len == 3
-    # check ships[battleship].len == 4
+    check ships[battleship].len == 4
     check ships[carrier].len == 5
 
