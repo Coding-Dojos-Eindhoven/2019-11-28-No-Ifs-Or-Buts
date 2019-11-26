@@ -15,7 +15,8 @@ Each player has a 10x10 grid on which they place their ships:
 - A submarine: 3 cells
 - A destroyer: 2 cells
 
-The winner of the game is the player who first finds all their opponent's ships.
+The winner of the game is the player who first finds and destroys all their
+opponent's ships.
 
 First both players set up their boards: they place their ships in such a way
 that the other player cannot see where. Ships can be oriented horizontally and
