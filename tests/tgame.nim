@@ -3,6 +3,10 @@ import tables
 import game
 
 suite "setup":
+  test "a ship can be placed":
+    let updated = ships.place(destroyer, @[(3,1), (4,1)])
+    check updated[destroyer].coordinates == @[(3,1), (4,1)]
+
   test "a destroyer has two empty positions":
     let ship = ships[destroyer]
     check not isHit(ship, 0)
