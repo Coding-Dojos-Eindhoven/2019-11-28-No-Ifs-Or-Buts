@@ -36,5 +36,4 @@ proc drop*(ships: Ships, row, column: int): Ships =
 proc allHaveSunk*(ships: Ships): bool =
   result = true
   for ship in low(ShipType)..high(ShipType):
-    for position in ships[ship]:
-      result = result and position.hit
+    result = result and ships[ship].allIt(it.hit)
