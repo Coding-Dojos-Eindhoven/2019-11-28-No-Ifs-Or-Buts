@@ -8,8 +8,7 @@ type
   Ships* = Table[ShipType, Ship]
 
 const unplaced = ((0, 0), false)
-
-const ships*: Ships = {
+const unplacedShips*: Ships = {
   destroyer:  @[unplaced, unplaced],
   submarine:  @[unplaced, unplaced, unplaced],
   cruiser:    @[unplaced, unplaced, unplaced],
