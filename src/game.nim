@@ -4,8 +4,11 @@ import sequtils
 type
   Coordinate = (int, int)
   ShipType* = enum destroyer, submarine, cruiser, battleship, carrier
-  Ship* = seq[tuple[coordinate: Coordinate, hit: bool]]
+  ShipHole = tuple[coordinate: Coordinate, hit: bool]
+  Ship* = seq[ShipHole]
   Ships* = Table[ShipType, Ship]
+
+const allShipTypes = [destroyer, submarine, cruiser, battleship, carrier]
 
 const unplaced = ((0, 0), false)
 const unplacedShips*: Ships = {
@@ -26,14 +29,15 @@ proc place*(ships: Ships, ship: ShipType, coordinates: seq[Coordinate]): Ships =
 proc coordinates*(ship: Ship): seq[Coordinate] =
   ship.mapIt(it.coordinate)
 
+proc updateHit(hole: ShipHole, drop: Coordinate): ShipHole =
+  (hole.coordinate, hole.hit or hole.coordinate == drop)
+
 proc drop*(ships: Ships, row, column: int): Ships =
   result = ships
-  for ship in low(ShipType)..high(ShipType):
-    result[ship].applyIt(
-      (it.coordinate, it.hit or it.coordinate == (row, column))
-    )
+  for shipType in allShipTypes:
+    result[shipType].applyIt(updateHit(it, (row, column)))
 
 proc allHaveSunk*(ships: Ships): bool =
   result = true
-  for ship in low(ShipType)..high(ShipType):
-    result = result and ships[ship].allIt(it.hit)
+  for shipType in allShipTypes:
+    result = result and ships[shipType].allIt(it.hit)
