@@ -27,4 +27,7 @@ proc coordinates*(ship: Ship): seq[Coordinate] =
   ship.mapIt(it[0])
 
 proc drop*(ships: Ships, row, column: int): bool =
-  result = not bool(row)
+  for ship in low(ShipType)..high(ShipType):
+    for coordinate in ships[ship].coordinates:
+      let hit = coordinate == (row, column)
+      result = result or hit

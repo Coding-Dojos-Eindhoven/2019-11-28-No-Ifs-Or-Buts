@@ -20,10 +20,19 @@ suite "setup":
     check unplacedShips[carrier].len == 5
 
 suite "dropping bombs":
+
+  var ships: Ships
+
+  setup:
+    ships = unplacedShips
+      .place(destroyer, @[(7,1), (7,2)])
+      .place(submarine, @[(7,8), (6,8), (5,8)])
+      .place(cruiser, @[(1,1), (1,2), (1,3)])
+      .place(battleship, @[(3,2), (3,3), (3,4), (3,5)])
+      .place(carrier, @[(4,7), (3,7), (2,7), (1,7), (0,7)])
+
   test "a bomb can hit":
-    let ships = unplacedShips
-    check ships.drop(0, 0) == true
+    check ships.drop(7, 1) == true
 
   test "a bomb can miss":
-    let ships = unplacedShips
-    check ships.drop(1,1) == false
+    check ships.drop(0, 1) == false
