@@ -1,7 +1,10 @@
 import tables
 
-type Ship* = enum destroyer
+type
+  ShipType* = enum destroyer
+  Ship* = seq[bool]
 
-const ships* = {destroyer: [false, false]}.toTable
+const ships* = {destroyer: @[false, false]}.toTable
 
-proc isHit*(position: bool): bool = position
+proc isHit*(ship: Ship, position: int): bool =
+  ship[position]
