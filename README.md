@@ -3,10 +3,10 @@ No Ifs Or Buts
 
 This repository contains materials for the coding dojo of November 28, 2019.
 
-Battleships
------------
+Battleship
+----------
 
-We're going to implement the board game 'Battleships'. It's a two-player game.
+We're going to implement the board game 'Battleship'. It's a two-player game.
 Each player has a 10x10 grid on which they place their ships:
 
 - A carrier, which is 5 cells long
