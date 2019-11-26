@@ -3,6 +3,7 @@ import tables
 import game
 
 suite "setup":
+
   test "a ship can be placed":
     let placed = unplacedShips.place(destroyer, @[(3,1), (4,1)])
     check placed[destroyer].coordinates == @[(3,1), (4,1)]
