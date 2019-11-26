@@ -46,3 +46,13 @@ suite "dropping bombs":
       .drop(7, 2)
     check isHit(updated[destroyer], 0) == true
     check isHit(updated[destroyer], 1) == true
+
+  test "it knows when all ships have sunk":
+    check allHaveSunk(ships) == false
+    let allSunk = ships
+      .drop(7,1).drop(7,2)
+      .drop(7,8).drop(6,8).drop(5,8)
+      .drop(1,1).drop(1,2).drop(1,3)
+      .drop(3,2).drop(3,3).drop(3,4).drop(3,5)
+      .drop(4,7).drop(3,7).drop(2,7).drop(1,7).drop(0,7)
+    check allHaveSunk(allSunk) == true

@@ -30,3 +30,9 @@ proc drop*(ships: Ships, row, column: int): Ships =
   result = ships
   for ship in low(ShipType)..high(ShipType):
     result[ship] = result[ship].mapIt((it[0], it[1] or it[0] == (row, column)))
+
+proc allHaveSunk*(ships: Ships): bool =
+  result = true
+  for ship in low(ShipType)..high(ShipType):
+    for position in ships[ship]:
+      result = result and position[1]
