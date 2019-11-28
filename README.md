@@ -41,7 +41,9 @@ you **cannot** use:
 - `if` statements
 - `case`/`switch` statements
 - ternary operator (`<cond> ? <when-true> : <when-false>`)
-- loops with conditions (e.g. `for`, `while`, etc.)
+- loops with conditions, e.g. `for`, `while`, etc. (so `for **element** in
+  myList` is OK, but `for **index** in 0..9` is not; the point is to make
+  off-by-one errors impossible)
 - `try`/`catch`
 
 Whenever you want to use a construct and you're not sure if you're allowed to,
