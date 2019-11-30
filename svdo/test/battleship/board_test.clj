@@ -38,4 +38,10 @@
   (testing "a ships that overlaps an existing one is ignored"
     (let [updated (-> {:destroyer [[\b 1] [\b 2]]}
                       (place {:cruiser [[\c 2] [\b 2] [\a 2]]}))]
+      (is (= {:destroyer [[\b 1] [\b 2]]} updated))))
+
+  (testing "new ships are also checked for overlap"
+    (let [updated (-> empty-board
+                      (place {:destroyer [[\b 1] [\b 2]]
+                              :cruiser [[\c 2] [\b 2] [\a 2]]}))]
       (is (= {:destroyer [[\b 1] [\b 2]]} updated)))))
