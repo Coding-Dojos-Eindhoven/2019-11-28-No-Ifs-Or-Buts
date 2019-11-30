@@ -18,4 +18,11 @@
                       (place :destroyer [])
                       (place :battleship []))]
       (is (and (some? (:destroyer updated))
+               (some? (:battleship updated))))))
+
+  (testing "multiple ships can be placed at once"
+    (let [updated (-> empty-board
+                      (place {:destroyer []
+                              :battleship []}))]
+      (is (and (some? (:destroyer updated))
                (some? (:battleship updated)))))))
