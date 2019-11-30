@@ -6,4 +6,9 @@
   (testing "a destroyer is placed on given coordinates"
     (let [coordinates [[\a 3] [\a 4]]
           updated (place empty-board :destroyer coordinates)]
-      (is (= (:destroyer updated) coordinates)))))
+      (is (= (:destroyer updated) coordinates))))
+
+  (testing "another ship type can also be placed"
+    (let [coordinates [[\a 3] [\a 4]]
+          updated (place empty-board :cruiser coordinates)]
+      (is (= (:cruiser updated) coordinates)))))
