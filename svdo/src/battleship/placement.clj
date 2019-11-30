@@ -1,4 +1,4 @@
-(ns battleship.board)
+(ns battleship.placement)
 
 (def empty-board {})
 
