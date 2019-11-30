@@ -19,9 +19,19 @@
   (and (seq coordinates)
        (every? on-grid? coordinates)))
 
-;; Technique used: [collection-instead-of-element]
+(defn existing-coordinates [board]
+  (set (apply concat (vals board))))
+
+(defn unique-coordinates? [board [_ new-coords]]
+  (prn board new-coords)
+  (let [existing (existing-coordinates board)]
+    (every? false?
+            (map #(contains? existing %1) new-coords))))
+
 (defn place
+  ;; Technique used: [collection-instead-of-element]
   ([board ships]
    (->> ships
         (filter valid-coordinate?)
+        (filter (fn [ship] (unique-coordinates? board ship)))
         (reduce place-single-ship board))))

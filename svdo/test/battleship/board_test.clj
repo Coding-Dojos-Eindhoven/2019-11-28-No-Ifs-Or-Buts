@@ -33,4 +33,9 @@
                               :cruiser [[\b 2] [\b 1] [\b 0]]
                               :submarine [[\c 9] [\c 10] [\c 11]]
                               :battleship [[\k 5] [\j 5] [\i 5] [\h 5]]}))]
-      (is (= empty-board updated)))))
+      (is (= empty-board updated))))
+
+  (testing "a ships that overlaps an existing one is ignored"
+    (let [updated (-> {:destroyer [[\b 1] [\b 2]]}
+                      (place {:cruiser [[\c 2] [\b 2] [\a 2]]}))]
+      (is (= {:destroyer [[\b 1] [\b 2]]} updated)))))
