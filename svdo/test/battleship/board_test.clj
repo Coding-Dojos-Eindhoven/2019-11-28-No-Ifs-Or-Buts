@@ -3,7 +3,7 @@
             [battleship.board :refer [empty-board place]]))
 
 (deftest board-test
-  (testing "a ship is placed on given coordinates"
+  (testing "a destroyer is placed on given coordinates"
     (let [coordinates [[\a 3] [\a 4]]
           updated (place empty-board :destroyer coordinates)]
       (is (= (:destroyer updated) coordinates)))))
