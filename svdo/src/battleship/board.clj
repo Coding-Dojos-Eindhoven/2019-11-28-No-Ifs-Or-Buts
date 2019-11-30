@@ -52,3 +52,14 @@
         (filter valid-coordinate?)
         (filter (fn [ship] (unique-coordinates? board ship)))
         (reduce place-single-ship board))))
+
+(comment
+  (def destroyer-coordinates [[\a 3] [\a 4]])
+  (def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
+  (def battleship-coordinates [[\a 2] [\b 2] [\c 2] [\d 2]])
+  (def board {:destroyer destroyer-coordinates
+              :battleship battleship-coordinates})
+
+  (place board {:cruiser cruiser-coordinates})
+  ;; => {:destroyer [[\a 3] [\a 4]], :battleship [[\a 2] [\b 2] [\c 2] [\d 2]], :cruiser [[\b 4] [\b 5] [\b 6]]}
+  )
