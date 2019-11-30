@@ -15,14 +15,14 @@
 (defn- on-grid? [[row col]]
   (and (valid-col? col) (valid-row? row)))
 
-(defn valid-coordinate? [[_ coordinates]]
+(defn- valid-coordinate? [[_ coordinates]]
   (and (seq coordinates)
        (every? on-grid? coordinates)))
 
-(defn existing-coordinates [board]
   (set (apply concat (vals board))))
+(defn- existing-coordinates [board]
 
-(defn unique-coordinates? [board [_ new-coords]]
+(defn- unique-coordinates? [board [_ new-coords]]
   (prn board new-coords)
   (let [existing (existing-coordinates board)]
     (every? false?
