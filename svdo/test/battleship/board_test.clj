@@ -11,4 +11,11 @@
   (testing "another ship type can also be placed"
     (let [coordinates [[\a 3] [\a 4]]
           updated (place empty-board :cruiser coordinates)]
-      (is (= (:cruiser updated) coordinates)))))
+      (is (= (:cruiser updated) coordinates))))
+
+  (testing "multiple ships can be placed"
+    (let [updated (-> empty-board
+                      (place :destroyer [])
+                      (place :battleship []))]
+      (is (and (some? (:destroyer updated))
+               (some? (:battleship updated)))))))

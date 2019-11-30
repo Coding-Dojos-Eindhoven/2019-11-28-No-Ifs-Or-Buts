@@ -3,4 +3,4 @@
 (def empty-board {})
 
 (defn place [board ship coordinates]
-  {ship coordinates})
+  (assoc board ship coordinates))
