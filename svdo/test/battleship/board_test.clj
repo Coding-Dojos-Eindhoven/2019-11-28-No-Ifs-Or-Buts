@@ -25,4 +25,12 @@
   (testing "ships with empty coordinates are ignored"
     (let [updated (-> empty-board
                       (place {:destroyer []}))]
+      (is (= empty-board updated))))
+
+  (testing "ships outside grid are ignored"
+    (let [updated (-> empty-board
+                      (place {:destroyer [[\a 0] [\a 1]]
+                              :cruiser [[\b 2] [\b 1] [\b 0]]
+                              :submarine [[\c 9] [\c 10] [\c 11]]
+                              :battleship [[\k 5] [\j 5] [\i 5] [\h 5]]}))]
       (is (= empty-board updated)))))

@@ -6,8 +6,18 @@
   [board [ship-type coordinates]]
   (assoc board ship-type coordinates))
 
+(defn- valid-col? [col]
+  (some #{col} (range 1 11)))
+
+(defn- valid-row? [row]
+  (some #{(int row)} (range (int \a) (int \k))))
+
+(defn- on-grid? [[row col]]
+  (and (valid-col? col) (valid-row? row)))
+
 (defn valid-coordinate? [[_ coordinates]]
-  (seq coordinates))
+  (and (seq coordinates)
+       (every? on-grid? coordinates)))
 
 ;; Technique used: [collection-instead-of-element]
 (defn place
