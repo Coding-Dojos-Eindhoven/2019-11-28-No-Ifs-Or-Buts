@@ -1,3 +1,3 @@
 (ns battleship.board)
 
-(def empty-board true)
+(def empty-board {})

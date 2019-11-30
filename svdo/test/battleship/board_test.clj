@@ -3,5 +3,5 @@
             [battleship.board :refer [empty-board]]))
 
 (deftest board-test
-  (testing "there is a board"
-    (is (any? empty-board))))
+  (testing "the board is an empty map"
+    (is (map? empty-board))))
