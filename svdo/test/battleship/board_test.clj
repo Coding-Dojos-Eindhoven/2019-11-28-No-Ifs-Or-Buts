@@ -7,5 +7,10 @@
     (is (map? empty-board)))
 
   (testing "a destroyer can be placed on the board"
-    (let [updated (place empty-board :destroyer)]
-      (is (some? (:destroyer updated))))))
+    (let [updated (place empty-board :destroyer [])]
+      (is (some? (:destroyer updated)))))
+
+  (testing "a ship is placed on given coordinates"
+    (let [coordinates [[\a 3] [\a 4]]
+          updated (place empty-board :destroyer coordinates)]
+      (is (= (:destroyer updated) coordinates)))))

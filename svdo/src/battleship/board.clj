@@ -2,5 +2,5 @@
 
 (def empty-board {})
 
-(defn place [board ship]
-  {:destroyer true})
+(defn place [board ship coordinates]
+  {:destroyer coordinates})
