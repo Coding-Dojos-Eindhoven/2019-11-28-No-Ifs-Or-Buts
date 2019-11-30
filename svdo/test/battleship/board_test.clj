@@ -1,5 +1,5 @@
 (ns battleship.board-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest testing is]]
             [battleship.board :refer [empty-board place]]))
 
 (deftest board-test
