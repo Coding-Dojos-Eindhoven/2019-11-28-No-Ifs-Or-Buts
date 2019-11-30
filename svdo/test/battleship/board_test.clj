@@ -6,19 +6,12 @@
 
 (deftest board-test
   (testing "a destroyer is placed on given coordinates"
-    (let [updated (place empty-board :destroyer coordinates)]
+    (let [updated (place empty-board {:destroyer coordinates})]
       (is (= (:destroyer updated) coordinates))))
 
   (testing "another ship type can also be placed"
-    (let [updated (place empty-board :cruiser coordinates)]
+    (let [updated (place empty-board {:cruiser coordinates})]
       (is (= (:cruiser updated) coordinates))))
-
-  (testing "multiple ships can be placed"
-    (let [updated (-> empty-board
-                      (place :destroyer [])
-                      (place :battleship []))]
-      (is (and (some? (:destroyer updated))
-               (some? (:battleship updated))))))
 
   (testing "multiple ships can be placed at once"
     (let [updated (-> empty-board
