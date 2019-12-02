@@ -6,14 +6,16 @@
 (def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
 (def battleship-coordinates [[\a 2] [\b 2] [\c 2] [\d 2]])
 
+(def board-with-destroyer {:destroyer {:coordinates [[\b 1] [\b 2]]}})
+
 (deftest placement-test
   (testing "a destroyer is placed on given coordinates"
     (let [updated (place empty-board {:destroyer destroyer-coordinates})]
-      (is (= (:destroyer updated) destroyer-coordinates))))
+      (is (= (-> updated :destroyer :coordinates) destroyer-coordinates))))
 
   (testing "another ship type can also be placed"
     (let [updated (place empty-board {:cruiser cruiser-coordinates})]
-      (is (= (:cruiser updated) cruiser-coordinates))))
+      (is (= (-> updated :cruiser :coordinates) cruiser-coordinates))))
 
   (testing "multiple ships can be placed at once"
     (let [updated (-> empty-board
@@ -36,12 +38,12 @@
       (is (= empty-board updated))))
 
   (testing "a ships that overlaps an existing one is ignored"
-    (let [updated (-> {:destroyer [[\b 1] [\b 2]]}
+    (let [updated (-> board-with-destroyer
                       (place {:cruiser [[\c 2] [\b 2] [\a 2]]}))]
-      (is (= {:destroyer [[\b 1] [\b 2]]} updated))))
+      (is (= board-with-destroyer updated))))
 
   (testing "new ships are also checked for overlap"
     (let [updated (-> empty-board
                       (place {:destroyer [[\b 1] [\b 2]]
                               :cruiser [[\c 2] [\b 2] [\a 2]]}))]
-      (is (= {:destroyer [[\b 1] [\b 2]]} updated)))))
+      (is (= board-with-destroyer updated)))))

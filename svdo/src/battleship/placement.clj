@@ -4,7 +4,7 @@
 
 (defn- place-single-ship
   [board [ship-type coordinates]]
-  (assoc board ship-type coordinates))
+  (assoc board ship-type {:coordinates coordinates}))
 
 (defn- valid-col? [col]
   (some #{col} (range 1 11)))
@@ -19,23 +19,33 @@
   (and (seq coordinates)
        (every? on-grid? coordinates)))
 
-(defn- existing-coordinates [board]
-  (set (apply concat (map second board))))
+(defmulti
+  extract-coordinates
+  "Extracts coordinates from a data structure. This data structure can be a board
+   (represented using a map) or a list of ships (represented as a sequence of
+   ship type -> coordinates pairs)."
+  (fn [board-or-ships] (map? board-or-ships)))
+(defmethod extract-coordinates true [board]
+  (map :coordinates (vals board)))
+(defmethod extract-coordinates false [ships]
+  (map second ships))
 
-(defn- unique-coordinates? [board [_ new-coords]]
-  (prn board new-coords)
-  (let [existing (existing-coordinates board)]
-    (every? false?
-            (map #(contains? existing %1) new-coords))))
+(defn- existing-coordinates [board]
+  (set (apply concat (extract-coordinates board))))
+
+(defn- unique-coordinates? [existing [_ new-coords]]
+  (every? false?
+          (map #(contains? existing %1) new-coords)))
 
 (def truth-to-descriptive
   ;; Technique used: [dictionary-lookup] 
   {true :non-overlapping
    false :overlapping})
+
 (defmulti concat-if-unique
   ;; Technique used: [dynamic-dispatch]
   (fn [ships new-ship]
-    (truth-to-descriptive (unique-coordinates? ships new-ship))))
+    (truth-to-descriptive (unique-coordinates? (existing-coordinates ships) new-ship))))
 
 (defmethod concat-if-unique :non-overlapping [ships new-ship]
   (concat ships [new-ship]))
@@ -50,16 +60,18 @@
   ([board ships]
    (->> (non-overlapping ships)
         (filter valid-coordinate?)
-        (filter (fn [ship] (unique-coordinates? board ship)))
+        (filter (fn [ship] (unique-coordinates? (existing-coordinates board) ship)))
         (reduce place-single-ship board))))
 
 (comment
   (def destroyer-coordinates [[\a 3] [\a 4]])
   (def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
   (def battleship-coordinates [[\a 2] [\b 2] [\c 2] [\d 2]])
-  (def board {:destroyer destroyer-coordinates
-              :battleship battleship-coordinates})
+  (def board {:destroyer {:coordinates destroyer-coordinates}
+              :battleship {:coordinates battleship-coordinates}})
 
   (place board {:cruiser cruiser-coordinates})
-  ;; => {:destroyer [[\a 3] [\a 4]], :battleship [[\a 2] [\b 2] [\c 2] [\d 2]], :cruiser [[\b 4] [\b 5] [\b 6]]}
+  ;; => {:destroyer {:coordinates [[\a 3] [\a 4]]},
+  ;;     :battleship {:coordinates [[\a 2] [\b 2] [\c 2] [\d 2]]},
+  ;;     :cruiser {:coordinates [[\b 4] [\b 5] [\b 6]]}}
   )
