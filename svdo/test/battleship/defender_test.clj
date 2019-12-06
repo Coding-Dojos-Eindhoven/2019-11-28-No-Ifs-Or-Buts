@@ -3,8 +3,8 @@
             [battleship.placement :refer [empty-board]]
             [battleship.defender :refer [guess find-ship sunk?]]))
 
-(def destroyer-coordinates [[\a 3] [\a 4]])
-(def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
+(def destroyer-coordinates #{[\a 3] [\a 4]})
+(def cruiser-coordinates #{[\b 4] [\b 5] [\b 6]})
 
 (def board-with-destroyer {:destroyer {:coordinates destroyer-coordinates}})
 (def board-with-multiple-ships {:destroyer {:coordinates destroyer-coordinates}

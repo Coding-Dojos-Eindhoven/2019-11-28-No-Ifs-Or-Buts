@@ -34,8 +34,10 @@
   (set (apply concat (extract-coordinates board))))
 
 (defn- unique-coordinates? [existing [_ new-coords]]
-  (every? false?
-          (map #(contains? existing %1) new-coords)))
+  (let [return-value (every? false?
+                             (map #(contains? existing %1) new-coords))]
+    (prn "unique-coordinates?" existing new-coords "=>" return-value)
+    return-value))
 
 (def truth-to-descriptive
   ;; Technique used: [dictionary-lookup] 
@@ -64,14 +66,23 @@
         (reduce place-single-ship board))))
 
 (comment
-  (def destroyer-coordinates [[\a 3] [\a 4]])
-  (def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
-  (def battleship-coordinates [[\a 2] [\b 2] [\c 2] [\d 2]])
+  (def destroyer-coordinates #{[\a 3] [\a 4]})
+  (def cruiser-coordinates #{[\b 4] [\b 5] [\b 6]})
+  (def battleship-coordinates #{[\a 2] [\b 2] [\c 2] [\d 2]})
   (def board {:destroyer {:coordinates destroyer-coordinates}
               :battleship {:coordinates battleship-coordinates}})
 
+  (existing-coordinates board)
+  ;; => #{[\a 2] [\b 2] [\a 3] [\a 4] [\c 2] [\d 2]}
+
+  (unique-coordinates? (existing-coordinates board) [[\a 2]])
+  ;; => true
+
+  (unique-coordinates? (existing-coordinates board) [[\j 10]])
+  ;; => true
+
   (place board {:cruiser cruiser-coordinates})
-  ;; => {:destroyer {:coordinates [[\a 3] [\a 4]]},
-  ;;     :battleship {:coordinates [[\a 2] [\b 2] [\c 2] [\d 2]]},
-  ;;     :cruiser {:coordinates [[\b 4] [\b 5] [\b 6]]}}
+  ;; => {:destroyer {:coordinates #{[\a 3] [\a 4]}},
+  ;;     :battleship {:coordinates #{[\a 2] [\b 2] [\c 2] [\d 2]}},
+  ;;     :cruiser {:coordinates #{[\b 4] [\b 6] [\b 5]}}}
   )

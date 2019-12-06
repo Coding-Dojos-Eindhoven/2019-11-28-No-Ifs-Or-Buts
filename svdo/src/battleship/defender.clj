@@ -32,16 +32,16 @@
      (-> board ship :hits)))
 
 (comment
-  (def destroyer-coordinates [[\a 3] [\a 4]])
+  (def destroyer-coordinates #{[\a 3] [\a 4]})
   (def board-with-destroyer {:destroyer {:coordinates destroyer-coordinates}})
 
   (def guessed-coordinate [\a 4])
   (find-ship board-with-destroyer guessed-coordinate)
-  ;; => [:destroyer {:coordinates [[\a 3] [\a 4]]}]
+  ;; => [:destroyer {:coordinates #{[\a 3] [\a 4]}}]
 
   (guess board-with-destroyer guessed-coordinate)
-  ;; => {:result :destroyer, :board {:destroyer {:coordinates [[\a 3] [\a 4]], :hits #{[\a 4]}}}}
+  ;; => {:result :destroyer, :board {:destroyer {:coordinates #{[\a 3] [\a 4]}, :hits #{[\a 4]}}}}
 
   (guess board-with-destroyer [\j 10])
-  ;; => {:result nil, :board {:destroyer {:coordinates [[\a 3] [\a 4]]}, nil {:hits #{[\j 10]}}}}
+  ;; => {:result nil, :board {:destroyer {:coordinates #{[\a 3] [\a 4]}}, nil {:hits #{[\j 10]}}}}
   )
