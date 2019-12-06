@@ -1,7 +1,7 @@
 (ns battleship.defender-test
   (:require [clojure.test :refer [deftest testing is]]
             [battleship.placement :refer [empty-board]]
-            [battleship.defender :refer [guess find-ship]]))
+            [battleship.defender :refer [guess find-ship sunk?]]))
 
 (def destroyer-coordinates [[\a 3] [\a 4]])
 (def cruiser-coordinates [[\b 4] [\b 5] [\b 6]])
@@ -45,5 +45,10 @@
   (testing "it can be hit again in the same location"
     (let [{:keys [board]} (guess board-with-destroyer [\a 4])
           guess-result (guess board [\a 4])]
-      (is (= :destroyer (:result guess-result)))
-      (is (= #{[\a 4]} (-> guess-result :board :destroyer :hits))))))
+      (is (= #{[\a 4]} (-> guess-result :board :destroyer :hits)))))
+
+  (testing "it knows whether a ship has sunk"
+    (let [{:keys [board]} (guess board-with-destroyer [\a 4])
+          guess-result (guess board [\a 3])]
+      (is (not (sunk? (:board board) :destroyer)))
+      (is (sunk? (:board guess-result) :destroyer)))))

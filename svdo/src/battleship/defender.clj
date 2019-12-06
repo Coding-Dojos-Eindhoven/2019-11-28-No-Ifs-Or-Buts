@@ -27,6 +27,10 @@
               (update-in board [(ship-type $) :hits]
                          (fn [old] (set (conj old coordinate)))))}))
 
+(defn sunk? [board ship]
+  (= (set (-> board ship :coordinates))
+     (-> board ship :hits)))
+
 (comment
   (def destroyer-coordinates [[\a 3] [\a 4]])
   (def board-with-destroyer {:destroyer {:coordinates destroyer-coordinates}})
