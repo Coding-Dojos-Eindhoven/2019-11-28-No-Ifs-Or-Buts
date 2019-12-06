@@ -12,3 +12,6 @@ Techniques Used
 * **[dynamic-dispatch]** Let the compiler/runtime dispatch on a given criterion
 * **[dictionary-lookup]** Use a dictionary to translate a key (boolean or
   something more descriptive) to a lambda which determines what is happening.
+* **[clever-api-usage]** Your language may have APIs that have a well-defined
+  way of dealing with special cases such as `nil`. You can use those to prevent
+  conditions that check for those special cases.
